@@ -1,0 +1,76 @@
+{
+  "name": "sonora-sound-extractor",
+  "version": "0.1.0",
+  "description": "A calm Windows workspace for extracting MP3 audio from videos.",
+  "main": "src/main.cjs",
+  "author": "youwantsy",
+  "license": "MIT",
+  "repository": "github:youwantsy/Sound_Extractor",
+  "scripts": {
+    "lint": "eslint src scripts test eslint.config.cjs",
+    "format": "prettier --write src scripts test docs *.md *.json *.cjs .github",
+    "start": "electron .",
+    "check": "node scripts/check.cjs",
+    "test": "node --test test/*.test.cjs",
+    "test:e2e": "node scripts/e2e.cjs",
+    "tools": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/fetch-tools.ps1",
+    "build": "electron-builder --win portable nsis --x64 --publish never"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "electron": "44.5.1",
+    "electron-builder": "26.15.3",
+    "eslint": "10.12.0",
+    "globals": "17.13.0",
+    "prettier": "3.9.9"
+  },
+  "build": {
+    "appId": "io.github.youwantsy.sonora",
+    "productName": "Sonora",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "extraResources": [
+      {
+        "from": "vendor",
+        "to": "tools",
+        "filter": [
+          "**/*",
+          "!**/*.zip",
+          "!ffmpeg/bin/ffplay.exe"
+        ]
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "signAndEditExecutable": true,
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "Sonora-${version}-${arch}-nsis.${ext}"
+    },
+    "portable": {
+      "requestExecutionLevel": "user",
+      "artifactName": "Sonora-${version}-${arch}-portable.${ext}"
+    }
+  },
+  "overrides": {
+    "@electron/get": "5.1.0"
+  }
+}

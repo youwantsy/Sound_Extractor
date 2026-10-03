@@ -1,0 +1,29 @@
+name: Windows checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run tools
+      - run: npm run check
+      - run: npm run lint
+      - run: npm test
+      - run: npm audit --omit=dev
+      - run: npm run build
+      - run: npm run test:e2e
+        env:
+          SONORA_PACKAGED: ${{ github.workspace }}\dist\win-unpacked\Sonora.exe
+      # No Release or public binary artifact is published by this workflow.

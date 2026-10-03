@@ -1,0 +1,15 @@
+{
+  "ffmpeg": {
+    "sha256": "7157177b8a6cb2174c1650ba8c71b363f2c78cba5330f88c4c02cf5b2b880646",
+    "asset": "ffmpeg-n9.0.2-17-g2a571b6068-win64-lgpl-shared-9.0.zip",
+    "release": "autobuild-2026-09-30-13-08"
+  },
+  "node": {
+    "version": "24.17.0",
+    "sha256": "f2aa33b35b75aca5f3f7b85675a6f6423201053e9381911e64961f3bda2528ab"
+  },
+  "ytDlp": {
+    "version": "2026.08.19",
+    "sha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a"
+  }
+}
